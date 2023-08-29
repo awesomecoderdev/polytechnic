@@ -103,7 +103,9 @@ class StudentController extends Controller
                     'success'   => false,
                     'status'    => HTTP::HTTP_UNAUTHORIZED,
                     'message'   => "Unauthenticated student credentials.",
-                    'errors' => 'Invalid credentials.'
+                    'errors' => [
+                        "password" => ['Invalid credentials.']
+                    ]
                 ],  HTTP::HTTP_UNAUTHORIZED); // HTTP::HTTP_OK
             }
             // $request->user('student')->tokens()->delete();
@@ -299,7 +301,7 @@ class StudentController extends Controller
                     'status'    => HTTP::HTTP_UNPROCESSABLE_ENTITY,
                     'message'   => "Invalid password.",
                     'errors'     => [
-                        'password' => ["Password didn't matched."]
+                        "password" => ['Invalid credentials.']
                     ],
                 ],  HTTP::HTTP_UNPROCESSABLE_ENTITY); // HTTP::HTTP_OK
             }

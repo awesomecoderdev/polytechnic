@@ -14,7 +14,7 @@ class StudentLoginRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,8 @@ class StudentLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "login_field" => "required",
+            "password" => "required"
         ];
     }
 }
