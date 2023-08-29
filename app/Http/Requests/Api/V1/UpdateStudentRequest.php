@@ -2,11 +2,14 @@
 
 namespace App\Http\Requests\Api\V1;
 
+use App\Traits\ApiErrorResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
 
 class UpdateStudentRequest extends FormRequest
 {
+    use ApiErrorResponse;
+
     /**
      * Determine if the user is authorized to make this request.
      */

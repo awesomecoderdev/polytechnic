@@ -11,15 +11,12 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Response as HTTP;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
-use App\Http\Requests\Api\V1\StudentLoginRequest;
-use App\Http\Requests\Api\V1\UpdateStudentRequest as V1UpdateStudentRequest;
 use App\Http\Resources\Api\V1\StudentResources;
+use App\Http\Requests\Api\V1\StoreStudentRequest;
+use App\Http\Requests\Api\V1\StudentLoginRequest;
 
 class StudentController extends Controller
 {
@@ -214,7 +211,7 @@ class StudentController extends Controller
     /**
      * Update student data database.
      */
-    public function update(V1UpdateStudentRequest $request)
+    public function update(UpdateStudentRequest $request)
     {
         // get student
         $student = $request->user('student');
