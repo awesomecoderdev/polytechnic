@@ -17,6 +17,16 @@ class Teacher extends Authenticatable
 {
     use HasFactory, HasApiTokens, Notifiable;
 
+
+
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    // protected $primaryKey = 'eiin';
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -31,7 +41,8 @@ class Teacher extends Authenticatable
      */
     protected $hidden = [
         'password',
-        // 'remember_token',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -41,6 +52,9 @@ class Teacher extends Authenticatable
      */
     protected $casts = [
         'password' => 'hashed',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'metadata' => AsCollection::class,
     ];
 
     /**
