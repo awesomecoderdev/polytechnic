@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string("shift")->nullable();
             $table->string("session")->nullable();
             $table->string("technology")->nullable();
-            $table->text("metadata")->default([]);
+            $table->text("metadata")->nullable();
             $table->timestamp("dob")->nullable();
             $table->timestamp("email_verified_at")->nullable();
             $table->rememberToken();
