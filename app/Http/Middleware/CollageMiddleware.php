@@ -19,16 +19,18 @@ class CollageMiddleware
     public function handle(Request $request, Closure $next)
     {
         // check collage exist
-        try {
-            $collage = Collage::findOrFail($request->collage);
-            $request->collage = $collage;
-        } catch (\Throwable $th) {
-            // throw $th;
-            return Response::json([
-                'success'   => false,
-                'status'    => HTTP::HTTP_UNAUTHORIZED,
-                'message'   => "Unauthorized Access.",
-            ], HTTP::HTTP_UNAUTHORIZED); // HTTP::HTTP_OK
+        if ($request->collage) {
+            try {
+                $collage = Collage::findOrFail($request->collage);
+                $request->collage = $collage;
+            } catch (\Throwable $th) {
+                throw $th;
+                // return Response::json([
+                //     'success'   => false,
+                //     'status'    => HTTP::HTTP_UNAUTHORIZED,
+                //     'message'   => "Unauthorized Access.",
+                // ], HTTP::HTTP_UNAUTHORIZED); // HTTP::HTTP_OK
+            }
         }
 
         // response

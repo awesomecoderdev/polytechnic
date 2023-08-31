@@ -54,7 +54,7 @@ Route::any('/', function (Request $request) {
         "status" => 200,
         "message" => "Polytechnic API Version V0.1",
         "data" => [
-            // "collages" => $data
+            "collages" => Collage::orderBy("name", "ASC")->get(),
             "collage" => $request->collage
         ]
     ]);
