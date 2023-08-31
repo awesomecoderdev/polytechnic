@@ -51,8 +51,15 @@ class FrontendController extends Controller
 
 
         try {
-            $student = $request->user('student');
-            // $student->load(["address", "bookings"]);
+
+            if ($request->collage) {
+                return Response::json([
+                    "success" => true,
+                    "status" => 200,
+                    "message" => "{$request->collage?->name}, API Version V0.1",
+                ],  HTTP::HTTP_OK); // HTTP::HTTP_OK
+            }
+
             return Response::json([
                 "success" => true,
                 "status" => 200,
@@ -77,7 +84,7 @@ class FrontendController extends Controller
         return Response::json([
             "success" => true,
             "status" => 200,
-            "message" => "{$request->collage?->name} | Auth Version V0.1",
+            "message" => "{$request->collage?->name}, Auth Version V0.1",
         ],  HTTP::HTTP_OK); // HTTP::HTTP_OK
 
     }
