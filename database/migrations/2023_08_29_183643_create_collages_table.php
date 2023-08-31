@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('collages', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('eiin')->nullable(); //EIIN
+            $table->string('eiin')->unique(); //EIIN
             $table->string('district')->nullable();
             $table->string('location')->nullable();
             $table->timestamps();

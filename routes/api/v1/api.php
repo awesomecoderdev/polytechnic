@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\Auth\StudentController;
 use App\Http\Controllers\Api\V1\Auth\TeacherController;
+use App\Models\Collage;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +20,42 @@ use App\Http\Controllers\Api\V1\Auth\TeacherController;
 
 // V1 Base Route.
 Route::any('/', function (Request $request) {
+
+    // foreach (range('a', 'z') as $key => $search) {
+    //     $response = Http::get("https://btebresultszone.com/api/institutes/search?search=$search");
+    //     $collages = $response->json();
+
+    //     $data = collect($collages)->map(function ($item, $key) {
+    //         $collage = [
+    //             "name" => str_replace([", ,", "  "], [",", " "], $item["name"]),
+    //             "eiin" => $item["code"],
+    //             "district" => $item["district"],
+    //         ];
+    //         return $collage;
+    //     })->toArray();
+
+
+
+    //     foreach ($data as $key => $value) {
+    //         try {
+    //             $collage = new Collage();
+    //             $collage->name = $value["name"];
+    //             $collage->eiin = $value["eiin"];
+    //             $collage->district = $value["district"];
+    //             $collage->save();
+    //         } catch (\Throwable $th) {
+    //             // throw $th;
+    //         }
+    //     }
+    // }
+
     return response()->json([
         "success" => true,
         "status" => 200,
         "message" => "Polytechnic API Version V0.1",
+        "data" => [
+            // "collages" => $data
+        ]
     ]);
 });
 
