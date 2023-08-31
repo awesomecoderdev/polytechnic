@@ -55,9 +55,11 @@ Route::any('/', function (Request $request) {
         "message" => "Polytechnic API Version V0.1",
         "data" => [
             // "collages" => $data
+            "collage" => $request->collage
         ]
     ]);
 });
+
 
 // Guest routes
 Route::group(['prefix' => 'auth', "middleware" => "guest"], function () {
