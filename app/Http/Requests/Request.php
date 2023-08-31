@@ -9,7 +9,7 @@ class Request extends FormRequest
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array<int, string>
+     * @var mixed
      */
     public $collage;
 }
