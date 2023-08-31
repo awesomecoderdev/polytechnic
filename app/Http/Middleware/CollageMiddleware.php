@@ -21,8 +21,9 @@ class CollageMiddleware
         // check collage exist
         try {
             $collage = Collage::findOrFail($request->collage);
+            $request->collage = $collage;
         } catch (\Throwable $th) {
-            //throw $th;
+            // throw $th;
             return Response::json([
                 'success'   => false,
                 'status'    => HTTP::HTTP_UNAUTHORIZED,
