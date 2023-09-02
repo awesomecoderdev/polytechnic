@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer("technology_id")->default(0);
             $table->integer("collage_id")->default(0);
+            $table->integer("shift_id")->default(0);
             $table->string("first_name");
             $table->string("last_name")->nullable();
             $table->string("email")->unique();
@@ -25,7 +26,6 @@ return new class extends Migration
             $table->enum("semester", ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"])->default("1st");
             $table->string("roll")->nullable();
             $table->string("reg")->nullable();
-            $table->string("shift")->nullable();
             $table->string("session")->nullable();
             $table->string("technology")->nullable();
             $table->text("metadata")->nullable();
