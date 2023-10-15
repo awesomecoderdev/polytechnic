@@ -72,14 +72,16 @@
                                     {{ $result->published }}</span>
                             </div>
 
-                            <div class="relative bg-primary/20 p-2 rounded shadow-xl gap-3 border-red-600/25 border">
-                                @foreach (explode(', ', $result->failed) as $item)
-                                    <span
-                                        class="bg-red-500 text-white px-1.5 py-0.5 text-xs font-semibold mr-2 rounded-full">
-                                        {{ $item }}
-                                    </span>
-                                @endforeach
-                            </div>
+                            @if ($result->failed)
+                                <div class="relative bg-primary/20 p-2 rounded shadow-xl gap-3 border-red-600/25 border">
+                                    @foreach (explode(', ', $result->failed) as $item)
+                                        <span
+                                            class="bg-red-500 text-white px-1.5 py-0.5 text-xs font-semibold mr-2 rounded-full">
+                                            {{ $item }}
+                                        </span>
+                                    @endforeach
+                                </div>
+                            @endif
                         @endforeach
                         <a href="{{ route('index') }}"
                             class='w-full flex items-center justify-center px-4 py-2 text-zinc-700 font-extrabold text-sm bg-primary border rounded-md focus:border-primary/20 focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-40 border-primary placeholder:text-zinc-300 placeholder:font-medium'>
