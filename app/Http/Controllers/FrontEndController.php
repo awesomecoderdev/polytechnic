@@ -35,6 +35,17 @@ class FrontEndController extends Controller
      */
     public function result(Request $request)
     {
+        $semesters = [
+            '1st' => '1st',
+            '2nd' => '2nd',
+            '3rd' => '3rd',
+            '4th' => '4th',
+            '5th' => '5th',
+            '6th' => '6th',
+            '7th' => '7th',
+            '8th' => '8th'
+        ];
+
         $request->validate([
             "roll" => "required",
             "semester" => "required",
@@ -43,7 +54,10 @@ class FrontEndController extends Controller
         ]);
 
         $roll = intval($request->roll);
-
+        $response = Http::get('https://btebresultsbd.com/api/result', [
+            'rollNumber' => $roll,
+            'technology' => "diploma in engineering",
+        ]);
         $results = Result::where("roll", $roll)
             // ->where("semester", $request->input("semester", "7th"))
             ->orderBy("semester", "DESC")
@@ -65,6 +79,7 @@ class FrontEndController extends Controller
                             ->where("semester", $rslt?->semester)->firstOrNew();
                         $result->roll = $roll;
                         $result->gpa = $rslt?->results?->gpa;
+                        $result->failed = str_replace(["{ ", " }"], "", "$rslt?->results?->subjects");
                         $result->semester = $rslt?->semester;
                         $result->regulation = $rslt?->regulation;
                         $result->published = $rslt?->Date;
@@ -84,6 +99,6 @@ class FrontEndController extends Controller
             CollectMoreResult::dispatch($roll, 50);
         }
 
-        return $results;
+        return view("index", compact("semesters", "results", "roll"));
     }
 }

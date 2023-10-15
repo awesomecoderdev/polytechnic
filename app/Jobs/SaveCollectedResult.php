@@ -32,6 +32,7 @@ class SaveCollectedResult implements ShouldQueue
                 $result = Result::where("roll", $rslt["roll"])->where("semester", $rslt["semester"])->firstOrNew();
                 $result->roll = $rslt["roll"];
                 $result->gpa = $rslt["results"]["gpa"];
+                $result->failed = str_replace(["{ ", " }"], "", $rslt["results"]["subjects"]);
                 $result->semester = $rslt["semester"];
                 $result->regulation = $rslt["regulation"];
                 $result->published = $rslt["Date"];
