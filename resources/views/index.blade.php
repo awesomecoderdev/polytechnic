@@ -5,7 +5,8 @@
 
     <div
         class="relative h-full min-h-screen max-w-sm mx-auto bg-primary/15 p-4 text-zinc-600 overflow-scroll no-scrollbar">
-        <div class="relative bg-primary/30 rounded-xl px-2 py-1.5 shadow-xl border-primary">
+        <a href="{{ route('index') }}"
+            class="relative block bg-primary/30 rounded-xl px-2 py-1.5 shadow-xl border-primary">
             <div class="relative flex justify-between items-center">
                 <x-application-logo class="w-14 h-14 p-1.5 fill-current text-gray-500" />
                 <div class="w-full flex items-center">
@@ -17,11 +18,10 @@
                     </div>
                 </div>
             </div>
-        </div>
-
+        </a>
 
         <div class="py-4 mb-14">
-            @if (!$results)
+            @if (!isset($results))
                 <div class="relative bg-primary/30 flex items-center space-x-2 rounded shadow-xl border-primary ">
                     <img src="{{ asset('img/result.png') }}" alt="RESULT"
                         class="w-14 h-14 p-1.5 fill-current text-gray-500" />
@@ -32,34 +32,66 @@
 
             <div class="relative py-5">
                 @isset($results)
-                    <div class="relative grid gap-4">
+                    <div class="relative grid gap-3">
+
                         @foreach ($results as $result)
-                            @json($result)
                             <div
                                 class="relative bg-primary/30 min-h-[3.5rem] flex items-center space-x-2 rounded shadow-xl border-primary ">
                                 <img src="{{ asset('img/result.png') }}" alt="RESULT"
                                     class="w-14 h-14 p-1.5 fill-current text-gray-500" />
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-emerald-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
 
-                                <p class="font-bold text-sm leading-tight">
-                                    {{ $result->semester }}
-                                    {{ $result->gpa }}
+                                @if ($result->gpa)
+                                    <div
+                                        class="relative flex items-center space-x-0.5 bg-emerald-200 pl-0.5 pr-1.5 py-0.5 rounded-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-emerald-700">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+                                        </svg>
+                                        <strong class="text-[10px] text-emerald-700">Passed</strong>
+                                    </div>
+                                @else
+                                    <div
+                                        class="relative flex items-center space-x-0.5 bg-red-200 pl-0.5 pr-1.5 py-0.5 rounded-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-red-500">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+                                        </svg>
+                                        <strong class="text-[10px] text-red-700">Failed</strong>
+                                    </div>
+                                @endif
+
+                                <p class="font-bold text-sm leading-tight flex items-center space-x-2">
+                                    <span
+                                        class="border rounded-full border-zinc-800 px-1 text-[12px]">{{ $result->semester }}</span>
+                                    <strong class="text-emerald-600">{{ $result->gpa }}</strong>
                                 </p>
 
-                                {{ $result->failed }}
+                                <span class="absolute right-2 bottom-2 text-[10px] font-bold">Published :
+                                    {{ $result->published }}</span>
+                            </div>
+
+                            <div class="relative bg-primary/20 p-2 rounded shadow-xl gap-3 border-red-600/25 border">
+                                @foreach (explode(', ', $result->failed) as $item)
+                                    <span
+                                        class="bg-red-500 text-white px-1.5 py-0.5 text-xs font-semibold mr-2 rounded-full">
+                                        {{ $item }}
+                                    </span>
+                                @endforeach
                             </div>
                         @endforeach
+                        <a href="{{ route('index') }}"
+                            class='w-full flex items-center justify-center px-4 py-2 text-zinc-700 font-extrabold text-sm bg-primary border rounded-md focus:border-primary/20 focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-40 border-primary placeholder:text-zinc-300 placeholder:font-medium'>
+                            View Another Result
+                        </a>
                     </div>
                 @else
                     <form action="{{ route('result') }}" class="relative space-y-2" method="post">
                         @csrf
                         <div class="relative grid">
                             <p class="text-xs font-semibold text-zinc-600">Semester</p>
-                            {!! Form::select('semester', $semesters, '1st', [
+                            {!! Form::select('semester', $semesters, '8th', [
                                 'class' =>
                                     'px-4 py-2 text-zinc-500 font-extrabold text-sm bg-white border rounded-md focus:border-primary/20 focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-40 border-primary',
                             ]) !!}

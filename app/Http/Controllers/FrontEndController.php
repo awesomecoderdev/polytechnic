@@ -59,7 +59,7 @@ class FrontEndController extends Controller
             'technology' => "diploma in engineering",
         ]);
         $results = Result::where("roll", $roll)
-            // ->where("semester", $request->input("semester", "7th"))
+            ->where("semester", "<=", $request->input("semester", "8th"))
             ->orderBy("semester", "DESC")
             ->get();
 
@@ -75,28 +75,36 @@ class FrontEndController extends Controller
                     $rslts = $response->object();
 
                     foreach ($rslts as $key => $rslt) {
-                        $result = Result::where("roll", $rslt?->roll)
-                            ->where("semester", $rslt?->semester)->firstOrNew();
-                        $result->roll = $roll;
-                        $result->gpa = $rslt?->results?->gpa;
-                        $result->failed = str_replace(["{ ", " }"], "", "$rslt?->results?->subjects");
-                        $result->semester = $rslt?->semester;
-                        $result->regulation = $rslt?->regulation;
-                        $result->published = $rslt?->Date;
-                        $result->institute = $rslt?->institute;
-                        $result->metadata = $rslt?->results;
-                        $result->save();
+                        if (isset($rslt?->roll)) {
+                            $result = Result::where("roll", $rslt?->roll)
+                                ->where("semester", $rslt?->semester)->firstOrNew();
+                            $result->roll = $roll;
+                            $result->gpa = $rslt?->results?->gpa;
+                            $result->failed = str_replace(["{ ", " }"], "", $rslt?->results?->subjects ?? "");
+                            $result->semester = $rslt?->semester;
+                            $result->regulation = $rslt?->regulation;
+                            $result->published = $rslt?->Date;
+                            $result->institute = $rslt?->institute;
+                            $result->metadata = $rslt?->results;
+                            $result->save();
+                        }
                     }
                 }
 
                 $results = Result::where("roll", $roll)
-                    // ->where("semester", $request->input("semester", "7th"))
+                    ->where("semester", "<=", $request->input("semester", "8th"))
                     ->orderBy("semester", "DESC")
                     ->get();
             }
         } catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
             CollectMoreResult::dispatch($roll, 50);
+        }
+
+        if (!$results->count() > 0) {
+            return redirect()->route("index")->withErrors([
+                "roll" => "No Results found."
+            ]);
         }
 
         return view("index", compact("semesters", "results", "roll"));
