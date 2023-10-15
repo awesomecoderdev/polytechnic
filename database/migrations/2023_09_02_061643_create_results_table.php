@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text("metadata")->nullable();
             $table->string("regulation")->nullable();
             $table->string("institute")->nullable();
-            $table->timestamp("published")->nullable();
+            $table->string("published")->nullable();
             $table->timestamps();
         });
     }

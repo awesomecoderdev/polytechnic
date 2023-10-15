@@ -14,11 +14,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class=" min-h-screen bg-background font-sans antialiased ">
+<body class=" min-h-screen bg-primary/15 font-sans antialiased ">
     {{-- start::header --}} @yield('header') {{-- end::header --}}
 
-    <main id="main"
-        class="relative min-h-[calc(100vh-75px)] lg:px-8 sm:px-7 xs:px-5 px-4 xl:overflow-visible overflow-hidden">
+    <main id="main" class="relative min-h-[calc(100vh-75px)] ">
         @isset($slot)
             {{ $slot }}
         @endisset
