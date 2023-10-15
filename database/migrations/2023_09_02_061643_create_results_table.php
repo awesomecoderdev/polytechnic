@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->integer("student_id")->default(0);
+            // $table->integer("student_id")->default(0);
             $table->string("roll")->nullable();
-            $table->string("reg")->nullable();
-            $table->string("session")->nullable();
+            $table->string("gpa")->nullable();
+            $table->string("failed")->nullable();
+            // $table->string("reg")->nullable();
+            // $table->string("session")->nullable();
             $table->enum("semester", ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"])->default("1st");
             $table->text("metadata")->nullable();
+            $table->string("regulation")->nullable();
+            $table->string("institute")->nullable();
             $table->timestamp("published")->nullable();
             $table->timestamps();
         });
