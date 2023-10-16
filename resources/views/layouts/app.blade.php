@@ -17,7 +17,7 @@
 <body class=" min-h-screen bg-primary/15 font-sans antialiased ">
     {{-- start::header --}} @yield('header') {{-- end::header --}}
 
-    <main id="main" class="relative min-h-[calc(100vh-75px)] ">
+    <main id="main" class="relative">
         @isset($slot)
             {{ $slot }}
         @endisset

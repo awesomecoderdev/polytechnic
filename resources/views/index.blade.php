@@ -3,10 +3,9 @@
         <title>MUPI</title>
     @endsection
 
-    <div
-        class="relative h-full min-h-screen max-w-sm mx-auto bg-primary/15 p-4 text-zinc-600 overflow-scroll no-scrollbar">
-        <a href="{{ route('index') }}"
-            class="relative block bg-primary/30 rounded-xl px-2 py-1.5 shadow-xl border-primary">
+    <div class="relative h-full max-w-sm mx-auto bg-primary/15 p-4 text-zinc-600 overflow-scroll">
+        {{-- <a href="{{ route('index') }}"
+            class="relative block bg-primary/30 rounded-xl px-2 py-1.5 shadow-xl border-primary ">
             <div class="relative flex justify-between items-center">
                 <x-application-logo class="w-14 h-14 p-1.5 fill-current text-gray-500" />
                 <div class="w-full flex items-center">
@@ -18,7 +17,7 @@
                     </div>
                 </div>
             </div>
-        </a>
+        </a> --}}
 
         <div class="py-4 mb-14">
             @if (!isset($results))
@@ -93,7 +92,7 @@
                         @csrf
                         <div class="relative grid">
                             <p class="text-xs font-semibold text-zinc-600">Semester</p>
-                            {!! Form::select('semester', $semesters, '8th', [
+                            {!! Form::select('semester', $semesters, 'all', [
                                 'class' =>
                                     'px-4 py-2 text-zinc-500 font-extrabold text-sm bg-white border rounded-md focus:border-primary/20 focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-40 border-primary',
                             ]) !!}
@@ -114,11 +113,14 @@
                                 </p>
                             @enderror
                         </div>
-                        <div class="grid py-2">
-                            <button type="submit"
+                        <div class="grid py-2" x-data="{ loading: false }">
+                            <button type="submit" @click="loading = ! loading"
                                 class='w-full flex items-center justify-center px-4 py-2 text-zinc-700 font-extrabold text-sm bg-primary border rounded-md focus:border-primary/20 focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-40 border-primary placeholder:text-zinc-300 placeholder:font-medium'>
-                                {{-- <x-spinner class="h-6 w-6 p-1 mx-1.5 animate-spin fill-slate-600 text-slate-100 " /> --}}
-                                View Result
+                                <x-spinner class="h-6 w-6 p-1 mx-1.5 animate-spin fill-slate-600 text-slate-100 "
+                                    style="display: none;" x-show="loading" />
+                                <span x-show="!loading">
+                                    View Result
+                                </span>
                             </button>
                         </div>
                     </form>
