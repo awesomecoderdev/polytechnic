@@ -127,7 +127,7 @@ class FrontEndController extends Controller
 
         if (!$results?->count() > 0) {
             return redirect()->route("index")->withErrors([
-                "roll" => "No Results found."
+                "result" => "No Results found."
             ]);
         }
 
