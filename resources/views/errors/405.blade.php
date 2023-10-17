@@ -4,7 +4,7 @@
     @endsection
 
     <div
-        class="relative h-full min-h-screen max-h-screen max-w-sm mx-auto bg-primary/15 p-4 text-zinc-600 overflow-hidden">
+        class="relative h-full min-h-screen max-h-screen max-w-xl mx-auto bg-primary/15 p-4 text-zinc-600 overflow-hidden">
 
         <div class="py-4 mb-14">
             @if (!isset($results))
@@ -1716,7 +1716,7 @@
             </div>
         </div>
 
-        <div class="absolute h-14 w-full left-0 right-0 bottom-0 max-w-sm bg-primary/30 z-50">
+        <div class="absolute h-14 w-full left-0 right-0 bottom-0 max-w-xl bg-primary/30 z-50">
             <div class="relative flex justify-center items-center px-3 space-x-2">
                 <p class="base text-xs font-medium leading-tight">
                     This app is developed by

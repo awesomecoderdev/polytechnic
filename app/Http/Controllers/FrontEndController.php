@@ -65,7 +65,7 @@ class FrontEndController extends Controller
         ]);
 
         try {
-            $results = Cache::remember("{$roll}_{$semester}", 5 * 60, function () use ($roll, $semester, $request) {
+            $results = Cache::remember("{$roll}_{$semester}", 5, function () use ($roll, $semester, $request) {
                 $results = Result::where("roll", $roll)
                     // ->where("semester", "<=", $request->input("semester", "8th"))
                     ->when($request->semester, function ($query) use ($request) {
