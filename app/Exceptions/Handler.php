@@ -85,34 +85,6 @@ class Handler extends ExceptionHandler
         // ], $status); // HTTP::HTTP_OK
         // // }
 
-            // Save the e to an HTML file
-            $htmleMessage = $this->converteToHtml($e);
-            file_put_contents(public_path('error.html'), $htmleMessage);
-
-            // You can also log the e using Laravel's built-in logging system
-            Log::error($e);
-
         return parent::render($request, $e);
-    }
-
-    function converteToHtml($exception)
-    {
-        $html = '<html>';
-        $html .= '<head>';
-        $html .= '<title>Exception</title>';
-        $html .= '</head>';
-        $html .= '<body>';
-        $html .= '<h1>Exception Details</h1>';
-        $html .= '<p><strong>Type:</strong> ' . get_class($exception) . '</p>';
-        $html .= '<p><strong>Message:</strong> ' . $exception->getMessage() . '</p>';
-        $html .= '<p><strong>Code:</strong> ' . $exception->getCode() . '</p>';
-        $html .= '<p><strong>File:</strong> ' . $exception->getFile() . '</p>';
-        $html .= '<p><strong>Line:</strong> ' . $exception->getLine() . '</p>';
-        $html .= '<h2>Stack Trace</h2>';
-        $html .= '<pre>' . htmlspecialchars($exception->getTraceAsString()) . '</pre>';
-        $html .= '</body>';
-        $html .= '</html>';
-
-        return new HtmlString($html);
     }
 }
