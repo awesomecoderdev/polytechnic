@@ -17,6 +17,7 @@ use App\Http\Controllers\FrontEndController;
 
 Route::get('/', [FrontEndController::class, "index"])->name("index");
 Route::post('/result', [FrontEndController::class, "result"])->name("result");
+Route::get('/privacy-policy', [FrontEndController::class, "privacy"])->name("privacy");
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
