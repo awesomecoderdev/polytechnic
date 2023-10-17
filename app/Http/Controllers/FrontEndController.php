@@ -133,4 +133,12 @@ class FrontEndController extends Controller
 
         return view("index", compact("semesters", "results", "roll"));
     }
+
+    /**
+     * Display a index route default response.
+     */
+    public function privacy(Request $request)
+    {
+        return view("privacy");
+    }
 }
